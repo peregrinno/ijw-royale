@@ -1,0 +1,29 @@
+@import url('https://cdn.jsdelivr.net/npm/@mantine/core/lib/styles.css');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Bungee', sans-serif;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0);  /* Começa no topo */
+  }
+  100% {
+    transform: translateY(100vh); /* Move as partículas para o final da tela */
+  }
+}
