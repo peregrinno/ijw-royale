@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           theme={theme}
           defaultColorScheme="dark"
         >
-          <div style={{ display: "flex", height: "100vh", backgroundColor: rgba("#020202", 1) }}>
+          <div style={{ display: "flex", height: "100vh" }}>
             {/* Sidebar */}
             <Sidebar onSidebarToggle={setIsSidebarOpen} />
 

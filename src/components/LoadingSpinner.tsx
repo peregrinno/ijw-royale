@@ -7,10 +7,10 @@ export default function LoadingSpinner() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "100vh", // Ocupa toda a altura da tela
+                height: "100vh",
             }}
         >
-            <Loader size="xl" variant="dots" color="cyan" />
+            <Loader size="xl" variant="dots" color="#f7a40f" />
         </Box>
     );
 }

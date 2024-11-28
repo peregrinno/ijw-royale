@@ -1,18 +1,18 @@
 import { Card, Image, Text, Badge as BadgeUI } from '@mantine/core';
-import { Badge } from '@/interfaces/Badge';
+import { BadgeInterface } from '@/interfaces/Badge';
 
 interface Props {
-    badge: Badge;
+    badge: BadgeInterface;
 }
 
 export default function BadgeCard({ badge }: Props) {
     return (
-        <Card shadow="sm" padding="lg">
+        <Card shadow="sm" padding="lg" miw={300} h={470}>
             <Card.Section>
-                <Image src={badge.image} alt={badge.name} height={160} />
+                <Image src={badge.image} alt={badge.name} height={350} />
             </Card.Section>
-            <Text fw={500} mt="md">{badge.name}</Text>
-            <BadgeUI color={badge.rarity === 'legendary' ? 'yellow' : 'blue'}>{badge.rarity}</BadgeUI>
+            <Text fw={500} mih={70} mt="md">{badge.name}</Text>
+            <BadgeUI color={badge.rarity === 'Sanctum' ? 'yellow' : 'blue'}>{badge.rarity}</BadgeUI>
         </Card>
     );
 }

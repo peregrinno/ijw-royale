@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Box, Text } from "@mantine/core";
 import { Icon } from "./Icon";
+import { useRouter } from "next/navigation";
 
 const menuItems: { name: string; link: string }[] = [
     { name: "Jogadores", link: "/players" },
@@ -14,6 +15,8 @@ const menuItems: { name: string; link: string }[] = [
 export function Sidebar({ onSidebarToggle }: { onSidebarToggle: (isOpen: boolean) => void }) {
     const [isOpen, setIsOpen] = useState(false);
     const [isClient, setIsClient] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         setIsClient(true);
@@ -26,6 +29,12 @@ export function Sidebar({ onSidebarToggle }: { onSidebarToggle: (isOpen: boolean
         onSidebarToggle(state);
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("userToken");
+        setIsLoggedIn(false);
+        router.push("/auth/login");
+    };
+
     return (
         <>
             {/* Botão Hamburger */}
@@ -33,7 +42,7 @@ export function Sidebar({ onSidebarToggle }: { onSidebarToggle: (isOpen: boolean
                 <Icon
                     name="menu"
                     size={36}
-                    color="#1ABC9C"
+                    color="#f7a40f"
                     margin="28px 0px 0px 25px"
                     onClick={() => toggleSidebar(true)}
                 />
@@ -71,7 +80,7 @@ export function Sidebar({ onSidebarToggle }: { onSidebarToggle: (isOpen: boolean
                     <Icon
                         name="close"
                         size={36}
-                        color="#1ABC9C"
+                        color="#f7a40f"
                         onClick={() => toggleSidebar(false)}
                     />
                 </Box>
@@ -101,7 +110,7 @@ export function Sidebar({ onSidebarToggle }: { onSidebarToggle: (isOpen: boolean
                                 transition: "all 0.3s ease",
                             }}
                             onMouseEnter={(e) =>
-                                (e.currentTarget.style.backgroundColor = "#1ABC9C")
+                                (e.currentTarget.style.backgroundColor = "#f7a40f")
                             }
                             onMouseLeave={(e) =>
                                 (e.currentTarget.style.backgroundColor = "#34495E")
@@ -121,7 +130,27 @@ export function Sidebar({ onSidebarToggle }: { onSidebarToggle: (isOpen: boolean
                         fontSize: "0.8rem",
                     }}
                 >
-                    © 2024 IJW Royale
+                    {/* Mostrar "Sair" se o usuário estiver logado */}
+                    {isLoggedIn && (
+                        <Text
+                            onClick={handleLogout}
+                            style={{
+                                cursor: "pointer",
+                                color: "#ECF0F1",
+                                textDecoration: "none",
+                                transition: "all 0.3s ease",
+                            }}
+                            onMouseEnter={(e) =>
+                                (e.currentTarget.style.color = "#1ABC9C")
+                            }
+                            onMouseLeave={(e) =>
+                                (e.currentTarget.style.color = "#ECF0F1")
+                            }
+                        >
+                            Sair
+                        </Text>
+                    )}
+                    <div>© 2024 IJW Royale</div>
                 </Box>
             </Box>
         </>

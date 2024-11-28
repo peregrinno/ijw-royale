@@ -40,7 +40,7 @@ export default function Page() {
         textAlign: "center",
         position: "relative",
         overflow: "hidden",
-        background: "black",
+        background: "#242424",
         flexDirection: "column"
       }}
     >

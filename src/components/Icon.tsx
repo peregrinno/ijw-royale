@@ -33,8 +33,20 @@ export const Icon = ({ name, size = 36, color = "#1ABC9C", margin, onClick }: Ic
         ),
     };
 
+    const iconStyle: React.CSSProperties = {
+        display: "inline-block",
+        cursor: onClick ? "pointer" : "default",
+        margin,
+    };
+
+    if (name === "menu") {
+        Object.assign(iconStyle, {
+            position: "absolute",
+        });
+    }
+
     return (
-        <div onClick={onClick} style={{ display: "inline-block", cursor: onClick ? "pointer" : "default", margin }}>
+        <div onClick={onClick} style={iconStyle}>
             {icons[name]}
         </div>
     );

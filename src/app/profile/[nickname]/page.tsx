@@ -7,7 +7,7 @@ import { User } from '@/interfaces/User';
 import BadgeCard from '@/components/BadgeCard';
 import { useRouter } from 'next/navigation';
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { motion } from 'framer-motion'; // Importando framer-motion
+import { motion } from 'framer-motion';
 
 export default function ProfilePage({ params }: { params: { nickname: string } }) {
     const [user, setUser] = useState<User | null>(null);
@@ -22,18 +22,20 @@ export default function ProfilePage({ params }: { params: { nickname: string } }
             return;
         }
 
-        // Busca os dados do usuário
-        api
-            .get(`/profile/${params.nickname}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((response) => setUser(response.data))
-            .catch((err) => {
-                console.error(err);
-                setError('Erro ao carregar o perfil do usuário.');
-            });
+        if (params.nickname) {
+            // Busca os dados do usuário
+            api
+                .get(`/profile/${params.nickname}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((response) => setUser(response.data))
+                .catch((err) => {
+                    console.error(err);
+                    setError('Erro ao carregar o perfil do usuário.');
+                });
+        }
     }, [params.nickname, router]);
 
     if (error) return <div>{error}</div>;
@@ -44,7 +46,7 @@ export default function ProfilePage({ params }: { params: { nickname: string } }
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }} // Durando 1 segundo
+                transition={{ duration: 0.5 }}
             >
                 <Image
                     radius="md"
@@ -57,7 +59,7 @@ export default function ProfilePage({ params }: { params: { nickname: string } }
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.5 }} // Atraso de 0.5s para o Avatar aparecer depois
+                transition={{ duration: 0.5, delay: 0.5 }}
             >
                 <Avatar
                     src={user.url_avatar}
@@ -82,7 +84,7 @@ export default function ProfilePage({ params }: { params: { nickname: string } }
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1 }} // Atraso para o nome aparecer depois do Avatar
+                transition={{ duration: 0.5, delay: 1 }}
             >
                 <Title style={{ textAlign: 'left' }} mb="sm">
                     {user.nickname}
@@ -93,7 +95,7 @@ export default function ProfilePage({ params }: { params: { nickname: string } }
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1.3 }} // Atraso para o rank aparecer depois do nome
+                transition={{ duration: 0.5, delay: 1.3 }}
             >
                 <Text style={{ textAlign: 'left', color: 'gray', marginTop: '8px' }} size="sm">
                     Rank: {user.rank}
@@ -103,11 +105,14 @@ export default function ProfilePage({ params }: { params: { nickname: string } }
             {/* Insígnias */}
             <Grid mt="lg">
                 {user.badges.map((badge) => (
-                    <Grid.Col key={badge.uuid} span={4}>
+                    <Grid.Col
+                        key={badge.uuid}
+                        span={{ base: 12, md: 6, lg: 3 }}
+                    >
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5, delay: 1.5 }} // Atraso para as insígnias
+                            transition={{ duration: 0.5, delay: 1.5 }}
                         >
                             <BadgeCard badge={badge} />
                         </motion.div>
