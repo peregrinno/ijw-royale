@@ -16,7 +16,7 @@ const generateParticle = (): Particle => ({
   left: Math.random() * 100,
   size: Math.random() * 4 + 1,
   opacity: Math.random() * 0.7 + 0.2,
-  duration: Math.random() * 2 + 3,
+  duration: Math.random() * 2 + 1,
 });
 
 export default function Page() {
@@ -25,9 +25,9 @@ export default function Page() {
   useEffect(() => {
     const particleInterval = setInterval(() => {
       setParticles((prev) => [...prev, generateParticle()]);
-    }, 100); // Gera uma partícula a cada 100ms
+    }, 100);
 
-    return () => clearInterval(particleInterval); // Limpa o intervalo quando o componente é desmontado
+    return () => clearInterval(particleInterval);
   }, []);
 
   return (
@@ -38,7 +38,6 @@ export default function Page() {
         alignItems: "center",
         height: "100vh",
         textAlign: "center",
-        position: "relative",
         overflow: "hidden",
         background: "#242424",
         flexDirection: "column"

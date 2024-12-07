@@ -16,6 +16,7 @@ export default function LoginPage() {
             const response = await api.post('/auth/login', { nickname, password });
             const { token } = response.data;
             localStorage.setItem('userToken', token);
+            localStorage.setItem('userNickname', nickname);
             router.push(`/profile/${nickname}`);
         } catch (err) {
             setError('Credenciais inválidas, tente novamente.');
